@@ -1,0 +1,24 @@
+version: '2'
+
+services:
+
+  stelchat-node-js:
+    image: node:latest
+    container_name: stelchat-node-js
+    ports:
+      - 127.0.0.1:8888:8888
+    mem_limit: '1536M'
+    working_dir: /usr/src/app
+    volumes:
+      - ./backend:/usr/src/app
+    command: npm start
+
+  stelchat-nginx:
+    image: nginx
+    container_name: stelchat-nginx
+    ports:
+      - 127.0.0.1:9999:9999
+    mem_limit: '128M'
+    volumes:
+      - ./.docker/src/nginx/conf.d:/etc/nginx/conf.d
+      - ./frontend:/var/www/html/
